@@ -1,0 +1,75 @@
+{
+  "name": "api-backend",
+  "version": "0.0.1",
+  "description": "api backend service",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc --reporter=lcov --reporter=text --reporter=text-summary cross-env  NODE_ENV=test mocha -c -r esm test/**/*.test.js --timeout 12000 --exit",
+    "pretest": "npm run lint && cross-env  NODE_ENV=test npm run migrate:reset && cross-env  NODE_ENV=test npm run migrate up && cross-env  NODE_ENV=test npm run seed:reset && cross-env  NODE_ENV=test npm run seed:up",
+    "prestart": "npm run migrate:up && npm run seed:up",
+    "start": "node -r esm .",
+    "dev": "node -r esm .",
+    "migrate": "db-migrate --migrations-dir ./app/db/migrations",
+    "migrate:up": "npm run migrate up",
+    "migrate:down": "npm run migrate down",
+    "migrate:reset": "npm run migrate reset",
+    "migrate:create": "npm run migrate create",
+    "seed:create": "npm run migrate create:seeds",
+    "seed:up": "npm run migrate up:seeds",
+    "seed:down": "npm run migrate down:seeds",
+    "seed:reset": "npm run migrate reset:seeds",
+    "lint": "eslint --ext .js ./"
+  },
+  "keywords": [
+    "insurance",
+    "management"
+  ],
+  "author": "addempsea",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.3.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "husky": "^7.0.4",
+    "mocha": "^9.1.3",
+    "nyc": "^15.1.0"
+  },
+  "nyc": {
+    "exclude": [
+      "app/db/",
+      "app/jobs/",
+      "config/",
+      "app/middlewares/upload/",
+      "app/controllers/upload/",
+      "app/utils/helpers/upload.js"
+    ]
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.6.0",
+    "app-root-path": "^3.0.0",
+    "aws-sdk": "^2.1033.0",
+    "bcrypt": "^5.0.1",
+    "bluebird": "^3.7.2",
+    "bull": "^4.1.1",
+    "cors": "^2.8.5",
+    "db-migrate": "^0.11.13",
+    "db-migrate-pg": "^1.2.2",
+    "dotenv": "^10.0.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "faker": "^5.5.3",
+    "helmet": "^4.6.0",
+    "joi": "^17.4.2",
+    "js-sha256": "^0.9.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "nanoid": "^3.1.30",
+    "pg-monitor": "^1.4.1",
+    "pg-promise": "^10.11.1",
+    "winston": "^3.3.3",
+    "winston-papertrail": "git+https://github.com/kenperkins/winston-papertrail.git#v2"
+  }
+}

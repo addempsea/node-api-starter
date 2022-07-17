@@ -1,0 +1,18 @@
+{
+  "development": {
+    "ENV": "POSTGRES_DEV_URL"
+  },
+  "test": {
+    "ENV": "POSTGRES_TEST_URL"
+  },
+  "production": {
+    "ENV": "DATABASE_URL"
+  },
+  "staging": {
+    "ENV": "STAGING_DATABASE_URL"
+  },
+  "defaultEnv": {
+    "ENV": "NODE_ENV"
+  },
+  "sql-file": true
+}
